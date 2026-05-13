@@ -1,10 +1,10 @@
 # import pandas and numpy, and load the nls97 data
 import pandas as pd
 pd.set_option('display.width', 75)
-pd.set_option('display.max_columns', 5)
+pd.set_option('display.max_columns', 15)
 pd.set_option('display.max_rows', 20)
 pd.options.display.float_format = '{:,.2f}'.format
-nls97 = pd.read_csv("data/nls97.csv")
+nls97 = pd.read_csv("3. TakingMeasureOfData/data/nls97.csv")
 nls97.set_index("personid", inplace=True)
 
 # use slicing to select a few rows
@@ -36,7 +36,8 @@ lowsleep.shape
 # select rows based on multiple conditions
 lowsleep.childathome.describe()
 lowsleep3pluschildren = nls97.loc[(nls97.nightlyhrssleep<=4) & (nls97.childathome>=3)]
-lowsleep3pluschildren.shape
+# print(lowsleep3pluschildren.shape)
+# print(lowsleep3pluschildren.head())
 
 # select rows based on multiple conditions and also select columns
 lowsleep3pluschildren = nls97.loc[(nls97.nightlyhrssleep<=4) & (nls97.childathome>=3), ['nightlyhrssleep','childathome']]

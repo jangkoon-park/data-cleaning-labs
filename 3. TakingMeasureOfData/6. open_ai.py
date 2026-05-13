@@ -9,7 +9,7 @@ pd.set_option('display.max_columns', 7)
 pd.set_option('display.max_rows', 20)
 pd.options.display.float_format = '{:,.0f}'.format
 
-covidtotals = pd.read_csv("data/covidtotals.csv",
+covidtotals = pd.read_csv("3. TakingMeasureOfData/data/covidtotals.csv",
   parse_dates=['lastdate'])
 covidtotals.set_index("iso_code", inplace=True)
 
