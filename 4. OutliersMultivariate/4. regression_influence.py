@@ -7,6 +7,7 @@ pd.options.display.float_format = '{:,.2f}'.format
 covidtotals = pd.read_csv("4. OutliersMultivariate/data/covidtotals.csv")
 covidtotals.set_index("iso_code", inplace=True)
 
+print(covidtotals)
 # create an analysis file
 xvars = ['pop_density','median_age','gdp_per_capita']
 covidanalysis = covidtotals.loc[:,['total_cases_pm'] + xvars].dropna()
@@ -28,13 +29,16 @@ influence = lm.get_influence().summary_frame()
 influence.loc[influence.cooks_d>0.5, ['cooks_d']]
 covidanalysis.loc[influence.cooks_d>0.5]
 
-# do an influence plot
-fig, ax = plt.subplots(figsize=(8,8))
-sm.graphics.influence_plot(lm, ax = ax, alpha=5, criterion="cooks")
-plt.show()
+# # do an influence plot
+# fig, ax = plt.subplots(figsize=(8,8))
+# sm.graphics.influence_plot(lm, ax = ax, alpha=5, criterion="cooks")
+# plt.show()
 
-# show a model without the outliers
-covidanalysisminusoutliers = covidanalysis.loc[influence.cooks_d<0.5]
+# # show a model without the outliers
+covidanalysisminusoutliers = covidanalysis.loc[influence.cooks_d < 0.25]
 
 lm = getlm(covidanalysisminusoutliers)
-lm.summary()
+print(lm.summary())
+
+
+# print(influence.cooks_d.sort_values(ascending=False).head(10))
