@@ -106,7 +106,7 @@ pytest -q
 
 | Repository | Focus |
 |---|---|
-| `sql-plan-tuning-labs` | Oracle execution plan analysis and query optimization |
+| `sql-plan-tuning-labs` | PostgreSQL/MySQL execution plan analysis and query tuning |
 | `data-engineering-pipeline-labs` | NiFi → Airflow → Elasticsearch ingestion pipelines |
 | `data-engineering-fundamentals-project` | Architecture and design trade-off documentation |
 
