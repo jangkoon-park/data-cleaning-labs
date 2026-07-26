@@ -1,0 +1,151 @@
+vendor_id,vendor_name,grade,effective_from
+1,Subcontractor 001,B,2022-01-01
+2,Subcontractor 002,C,2022-01-01
+2,"Subcontractor 002 Co., Ltd.",S,2024-07-01
+3,Subcontractor 003,B,2022-01-01
+4,Subcontractor 004,B,2022-01-01
+5,Subcontractor 005,B,2022-01-01
+6,Subcontractor 006,B,2022-01-01
+7,Subcontractor 007,B,2022-01-01
+8,Subcontractor 008,B,2022-01-01
+8,"Subcontractor 008 Co., Ltd.",A,2024-07-01
+9,Subcontractor 009,A,2022-01-01
+10,Subcontractor 010,B,2022-01-01
+11,Subcontractor 011,B,2022-01-01
+11,"Subcontractor 011 Co., Ltd.",B,2024-07-01
+12,Subcontractor 012,B,2022-01-01
+13,Subcontractor 013,B,2022-01-01
+14,Subcontractor 014,A,2022-01-01
+15,Subcontractor 015,A,2022-01-01
+16,Subcontractor 016,B,2022-01-01
+17,Subcontractor 017,S,2022-01-01
+17,"Subcontractor 017 Co., Ltd.",S,2024-07-01
+18,Subcontractor 018,A,2022-01-01
+19,Subcontractor 019,B,2022-01-01
+19,"Subcontractor 019 Co., Ltd.",A,2024-07-01
+20,Subcontractor 020,A,2022-01-01
+21,Subcontractor 021,B,2022-01-01
+22,Subcontractor 022,B,2022-01-01
+23,Subcontractor 023,B,2022-01-01
+24,Subcontractor 024,S,2022-01-01
+24,"Subcontractor 024 Co., Ltd.",B,2024-07-01
+25,Subcontractor 025,A,2022-01-01
+26,Subcontractor 026,A,2022-01-01
+27,Subcontractor 027,B,2022-01-01
+27,"Subcontractor 027 Co., Ltd.",B,2024-07-01
+28,Subcontractor 028,C,2022-01-01
+29,Subcontractor 029,A,2022-01-01
+30,Subcontractor 030,B,2022-01-01
+31,Subcontractor 031,B,2022-01-01
+31,"Subcontractor 031 Co., Ltd.",S,2024-07-01
+32,Subcontractor 032,A,2022-01-01
+33,Subcontractor 033,C,2022-01-01
+34,Subcontractor 034,C,2022-01-01
+35,Subcontractor 035,S,2022-01-01
+35,"Subcontractor 035 Co., Ltd.",S,2024-07-01
+36,Subcontractor 036,A,2022-01-01
+36,"Subcontractor 036 Co., Ltd.",C,2024-07-01
+37,Subcontractor 037,B,2022-01-01
+38,Subcontractor 038,B,2022-01-01
+38,"Subcontractor 038 Co., Ltd.",C,2024-07-01
+39,Subcontractor 039,C,2022-01-01
+39,"Subcontractor 039 Co., Ltd.",S,2024-07-01
+40,Subcontractor 040,B,2022-01-01
+41,Subcontractor 041,A,2022-01-01
+42,Subcontractor 042,C,2022-01-01
+42,"Subcontractor 042 Co., Ltd.",B,2024-07-01
+43,Subcontractor 043,B,2022-01-01
+44,Subcontractor 044,A,2022-01-01
+44,"Subcontractor 044 Co., Ltd.",A,2024-07-01
+45,Subcontractor 045,B,2022-01-01
+45,"Subcontractor 045 Co., Ltd.",S,2024-07-01
+46,Subcontractor 046,C,2022-01-01
+46,"Subcontractor 046 Co., Ltd.",A,2024-07-01
+47,Subcontractor 047,B,2022-01-01
+48,Subcontractor 048,B,2022-01-01
+49,Subcontractor 049,A,2022-01-01
+49,"Subcontractor 049 Co., Ltd.",C,2024-07-01
+50,Subcontractor 050,B,2022-01-01
+51,Subcontractor 051,B,2022-01-01
+52,Subcontractor 052,C,2022-01-01
+53,Subcontractor 053,B,2022-01-01
+54,Subcontractor 054,S,2022-01-01
+54,"Subcontractor 054 Co., Ltd.",C,2024-07-01
+55,Subcontractor 055,B,2022-01-01
+56,Subcontractor 056,A,2022-01-01
+57,Subcontractor 057,C,2022-01-01
+58,Subcontractor 058,B,2022-01-01
+59,Subcontractor 059,C,2022-01-01
+60,Subcontractor 060,B,2022-01-01
+61,Subcontractor 061,B,2022-01-01
+62,Subcontractor 062,B,2022-01-01
+63,Subcontractor 063,B,2022-01-01
+64,Subcontractor 064,B,2022-01-01
+64,"Subcontractor 064 Co., Ltd.",S,2024-07-01
+65,Subcontractor 065,C,2022-01-01
+66,Subcontractor 066,C,2022-01-01
+67,Subcontractor 067,B,2022-01-01
+67,"Subcontractor 067 Co., Ltd.",A,2024-07-01
+68,Subcontractor 068,B,2022-01-01
+69,Subcontractor 069,A,2022-01-01
+70,Subcontractor 070,B,2022-01-01
+71,Subcontractor 071,B,2022-01-01
+72,Subcontractor 072,C,2022-01-01
+73,Subcontractor 073,B,2022-01-01
+73,"Subcontractor 073 Co., Ltd.",B,2024-07-01
+74,Subcontractor 074,B,2022-01-01
+74,"Subcontractor 074 Co., Ltd.",S,2024-07-01
+75,Subcontractor 075,B,2022-01-01
+76,Subcontractor 076,C,2022-01-01
+77,Subcontractor 077,C,2022-01-01
+78,Subcontractor 078,B,2022-01-01
+79,Subcontractor 079,B,2022-01-01
+80,Subcontractor 080,B,2022-01-01
+81,Subcontractor 081,B,2022-01-01
+82,Subcontractor 082,C,2022-01-01
+83,Subcontractor 083,C,2022-01-01
+83,"Subcontractor 083 Co., Ltd.",B,2024-07-01
+84,Subcontractor 084,C,2022-01-01
+85,Subcontractor 085,B,2022-01-01
+86,Subcontractor 086,S,2022-01-01
+87,Subcontractor 087,C,2022-01-01
+88,Subcontractor 088,A,2022-01-01
+89,Subcontractor 089,B,2022-01-01
+90,Subcontractor 090,S,2022-01-01
+91,Subcontractor 091,B,2022-01-01
+92,Subcontractor 092,B,2022-01-01
+92,"Subcontractor 092 Co., Ltd.",A,2024-07-01
+93,Subcontractor 093,C,2022-01-01
+94,Subcontractor 094,B,2022-01-01
+95,Subcontractor 095,B,2022-01-01
+96,Subcontractor 096,A,2022-01-01
+97,Subcontractor 097,B,2022-01-01
+98,Subcontractor 098,B,2022-01-01
+99,Subcontractor 099,A,2022-01-01
+99,"Subcontractor 099 Co., Ltd.",B,2024-07-01
+100,Subcontractor 100,B,2022-01-01
+100,"Subcontractor 100 Co., Ltd.",A,2024-07-01
+101,Subcontractor 101,A,2022-01-01
+102,Subcontractor 102,B,2022-01-01
+103,Subcontractor 103,A,2022-01-01
+104,Subcontractor 104,C,2022-01-01
+105,Subcontractor 105,S,2022-01-01
+106,Subcontractor 106,A,2022-01-01
+107,Subcontractor 107,B,2022-01-01
+108,Subcontractor 108,B,2022-01-01
+108,"Subcontractor 108 Co., Ltd.",S,2024-07-01
+109,Subcontractor 109,A,2022-01-01
+109,"Subcontractor 109 Co., Ltd.",B,2024-07-01
+110,Subcontractor 110,C,2022-01-01
+111,Subcontractor 111,B,2022-01-01
+112,Subcontractor 112,C,2022-01-01
+113,Subcontractor 113,A,2022-01-01
+113,"Subcontractor 113 Co., Ltd.",B,2024-07-01
+114,Subcontractor 114,A,2022-01-01
+115,Subcontractor 115,B,2022-01-01
+115,"Subcontractor 115 Co., Ltd.",C,2024-07-01
+116,Subcontractor 116,B,2022-01-01
+117,Subcontractor 117,B,2022-01-01
+118,Subcontractor 118,S,2022-01-01
+119,Subcontractor 119,A,2022-01-01
+120,Subcontractor 120,B,2022-01-01

@@ -1,0 +1,121 @@
+# 06 · Join Validation
+
+Detecting silent row multiplication and row loss when a fact table is joined to a dimension.
+
+---
+
+## Problem
+
+A subcontractor billing dataset with three tables:
+
+| Table | Rows | Key | Unique? |
+|---|---|---|---|
+| `contracts` | 400 | `contract_id` | yes |
+| `vendors` | 150 | `vendor_id` | **no — 120 distinct** |
+| `progress_payments` | 1,445 | `contract_id` | no (expected: 1-to-many child) |
+
+The vendor dimension is effective-dated. When a subcontractor changes name or grade, a new row is inserted rather than the old one updated, so 30 vendors carry two rows.
+
+Two defects follow from this.
+
+**D1 — fan-out.** A straightforward left merge of `contracts` to `vendors` on `vendor_id` returns more rows than it received:
+
+```
+rows          400  ->         484   (+84)
+amount 848,354,349,000  ->  1,038,107,130,000   (+22.37%)
+```
+
+Every contract belonging to a revised vendor is counted twice. Nothing errors. The merge succeeds, the dashboard renders, and the contract total is overstated by 22%.
+
+**D2 — silent loss.** Seven contracts reference vendor IDs that were purged from the dimension. An inner join would delete them along with 17,661,238,000 in contract value, and the row count would look plausible.
+
+Both defects share a property: **the failure is invisible at the point it occurs.** There is no exception to catch and no null to notice. The number is simply wrong downstream.
+
+---
+
+## Approach
+
+Three options were considered.
+
+**A. De-duplicate after the merge.** Merge first, then drop duplicate `contract_id` rows. Rejected — by that point the inflated rows are already mixed into the result, and any aggregation performed before the de-duplication is silently wrong. It also assumes the duplicate rows are identical, which they are not: the revised vendor rows carry different names and grades, so `drop_duplicates` picks arbitrarily.
+
+**B. Aggregate the dimension into the fact.** Collapse vendor attributes into a single concatenated field before merging. Rejected — it preserves row count but destroys the ability to filter or group by vendor grade, which is the reason the dimension is being joined at all.
+
+**C. Resolve the dimension to one row per key before merging, and assert invariants across the merge.** Chosen.
+
+For the orphaned rows a separate decision was needed: drop them, or keep them. Dropping produces a clean-looking dataset that quietly understates the total. Keeping them preserves the total but leaves nulls in the vendor columns. The second is preferred — **a visible null is a reportable problem, a missing row is not.**
+
+---
+
+## Decision
+
+Resolution is by latest `effective_from` per `vendor_id`. This is a business rule, not a technical one: it assumes the most recent registration is the correct current identity of the subcontractor. Where a contract predates the revision, the current name is still shown, which is intentional for reporting on *who we owe now* rather than *who we contracted with then*. A point-in-time join would be the right choice for a historical audit view and is not implemented here.
+
+The merge itself is wrapped so that it proves its own correctness:
+
+```python
+def safe_merge(fact, dim, key, measure, tolerance=0.0):
+    if not dim[key].is_unique:
+        raise JoinIntegrityError(...)     # refuse to fan out
+
+    merged = fact.merge(dim, on=key, how="left", indicator="_merge_source")
+    merged["_unmatched"] = merged["_merge_source"] == "left_only"
+
+    if len(merged) != len(fact):          # row count invariant
+        raise JoinIntegrityError(...)
+    if abs(merged[measure].sum() - fact[measure].sum()) > tolerance:
+        raise JoinIntegrityError(...)     # measure invariant
+    return merged
+```
+
+The function raises rather than returns on violation. A pipeline that stops is recoverable; a pipeline that produces a plausible wrong number is not.
+
+---
+
+## Result
+
+```
+rows                  400
+total contract amount 848,354,349,000
+unmatched vendors     7 rows (17,661,238,000 retained)
+```
+
+| | Naive merge | Validated merge |
+|---|---|---|
+| Rows | 484 | 400 |
+| Contract total | 1,038,107,130,000 | 848,354,349,000 |
+| Deviation from source | +22.37% | 0.00% |
+| Orphaned contracts | hidden | 7, flagged |
+
+Eight assertions fix this contract in `tests/test_clean.py`, including one that fails deliberately if `safe_merge` is handed the unresolved dimension.
+
+**Known limitations.** Only the latest-revision rule is implemented; point-in-time correctness is out of scope. The measure invariant uses exact equality, which is safe for integer currency but would need a tolerance for float measures. Orphan handling flags but does not attempt to repair.
+
+---
+
+## Reproduce
+
+```bash
+python src/generate_data.py    # seeded; prints ground-truth totals
+python src/profile.py          # quantify the defect
+python src/clean.py            # apply the validated merge
+pytest tests/ -q               # 8 passed
+```
+
+---
+
+## Data
+
+Synthetic, generated by `src/generate_data.py` with a fixed seed. The schema and the two defects are modelled on effective-dated vendor masters in enterprise ERP systems, where dimension history and purged reference records are ordinary. Synthetic data was chosen deliberately here: because the generator knows the true totals, the cleaning result can be verified against a known answer instead of inspected by eye.
+
+---
+
+## 한국어 요약
+
+**문제.** 협력사 마스터가 이력형(effective-dated)이라 `vendor_id`가 유일하지 않습니다. 계약 테이블에 그대로 조인하면 행이 400 → 484로 늘고 계약 금액이 **22.37% 과대 계상**됩니다. 예외도 나지 않고 NULL도 안 생기므로 화면상으로는 정상입니다. 반대로 마스터에서 삭제된 협력사를 참조하는 계약 7건은 inner join 시 176억 원과 함께 조용히 사라집니다.
+
+**판단.** 조인 후 중복 제거(A)와 차원 속성 통합(B)을 검토했으나, 전자는 이미 오염된 값을 집계할 위험이 있고 후자는 등급별 조회 자체를 못 하게 만듭니다. 따라서 **조인 전에 차원을 키당 1행으로 정리하고, 조인 전후 불변식을 강제**하는 방식을 택했습니다.
+
+미매칭 행은 삭제하지 않고 플래그만 남겼습니다. 보이는 NULL은 보고할 수 있지만, 사라진 행은 아무도 모르기 때문입니다.
+
+**결과.** 행 수와 금액 합계가 원본과 정확히 일치하며, 검증 로직은 테스트 8건으로 고정되어 있습니다.
