@@ -30,7 +30,7 @@ ground truth             67,210,551,275
 shortfall               -51,329,177,983
 ```
 
-**476 of the 499 discarded rows were perfectly readable.** The function did exactly what it was told and threw away 76% of the money without raising anything.
+**475 of the 499 discarded rows were perfectly readable.** The function did exactly what it was told and threw away 76% of the money without raising anything.
 
 There is a second, quieter defect. Unit prices are stored at 4 decimal places and displayed at 3. So the screen multiplies a rounded price by quantity while the database multiplies the unrounded one:
 

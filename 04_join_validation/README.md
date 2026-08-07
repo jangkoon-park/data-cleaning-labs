@@ -1,4 +1,4 @@
-# 06 · Join Validation
+# 04 · Join Validation
 
 Detecting silent row multiplication and row loss when a fact table is joined to a dimension.
 
